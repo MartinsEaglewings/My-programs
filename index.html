@@ -1,0 +1,122 @@
+‎<!DOCTYPE html>
+‎<html lang="en">
+‎<head>
+‎<meta charset="UTF-8">
+‎<meta name="viewport" content="width=device-width, initial-scale=1.0">
+‎<title>Departmental E-Library</title>
+‎<style>
+‎  * { box-sizing: border-box; margin: 0; padding: 0; }
+‎  body {
+‎    font-family: 'Segoe UI', Arial, sans-serif;
+‎    background: #f4f6f8;
+‎    color: #222;
+‎  }
+‎  header {
+‎    background: #0d47a1;
+‎    color: #fff;
+‎    padding: 18px 24px;
+‎    display: flex;
+‎    justify-content: space-between;
+‎    align-items: center;
+‎    flex-wrap: wrap;
+‎    gap: 10px;
+‎  }
+‎  header h1 { font-size: 1.4rem; }
+‎  #search {
+‎    padding: 8px 12px;
+‎    border-radius: 6px;
+‎    border: none;
+‎    width: 260px;
+‎    max-width: 100%;
+‎  }
+‎  .container { max-width: 1000px; margin: 24px auto; padding: 0 16px; }
+‎  .grid {
+‎    display: grid;
+‎    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+‎    gap: 18px;
+‎  }
+‎  .card {
+‎    background: #fff;
+‎    border-radius: 10px;
+‎    padding: 16px;
+‎    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+‎    display: flex;
+‎    flex-direction: column;
+‎    gap: 8px;
+‎  }
+‎  .card h3 { font-size: 1.05rem; color: #0d47a1; }
+‎  .card p { font-size: 0.9rem; color: #555; }
+‎  .card .meta { font-size: 0.8rem; color: #888; }
+‎  .card button {
+‎    margin-top: auto;
+‎    background: #0d47a1;
+‎    color: #fff;
+‎    border: none;
+‎    padding: 8px 12px;
+‎    border-radius: 6px;
+‎    cursor: pointer;
+‎  }
+‎  .card button:hover { background: #0a3679; }
+‎  .empty { text-align: center; color: #777; padding: 40px; }
+‎  footer { text-align: center; padding: 20px; color: #888; font-size: 0.85rem; }
+‎</style>
+‎</head>
+‎<body>
+‎
+‎<header>
+‎  <h1>📚 Departmental E-Library</h1>
+‎  <input id="search" type="text" placeholder="Search by title or author...">
+‎</header>
+‎
+‎<div class="container">
+‎  <div id="bookList" class="grid"></div>
+‎</div>
+‎
+‎<footer>&copy; 2025 Departmental E-Library</footer>
+‎
+‎<script>
+‎  // Sample library data — replace with your own books/materials
+‎  const books = [
+‎    { title: "Introduction to Programming", author: "J. Smith", year: 2020, link: "https://example.com/book1.pdf" },
+‎    { title: "Data Structures & Algorithms", author: "A. Doe", year: 2019, link: "https://example.com/book2.pdf" },
+‎    { title: "Database Systems", author: "M. Okafor", year: 2021, link: "https://example.com/book3.pdf" },
+‎    { title: "Computer Networks", author: "T. Adeyemi", year: 2018, link: "https://example.com/book4.pdf" },
+‎    { title: "Operating Systems Concepts", author: "S. Bello", year: 2022, link: "https://example.com/book5.pdf" },
+‎    { title: "Web Development Fundamentals", author: "K. Chen", year: 2023, link: "https://example.com/book6.pdf" }
+‎  ];
+‎
+‎  const bookList = document.getElementById('bookList');
+‎  const searchInput = document.getElementById('search');
+‎
+‎  function render(list) {
+‎    if (list.length === 0) {
+‎      bookList.innerHTML = '<div class="empty">No books match your search.</div>';
+‎      return;
+‎    }
+‎    bookList.innerHTML = list.map(b => `
+‎      <div class="card">
+‎        <h3>${b.title}</h3>
+‎        <p>Author: ${b.author}</p>
+‎        <div class="meta">Year: ${b.year}</div>
+‎        <button onclick="openBook('${b.link}')">Open / Download</button>
+‎      </div>
+‎    `).join('');
+‎  }
+‎
+‎  function openBook(link) {
+‎    window.open(link, '_blank');
+‎  }
+‎
+‎  searchInput.addEventListener('input', () => {
+‎    const q = searchInput.value.toLowerCase();
+‎    const filtered = books.filter(b =>
+‎      b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q)
+‎    );
+‎    render(filtered);
+‎  });
+‎
+‎  render(books);
+‎</script>
+‎</body>
+‎</html>
+‎
